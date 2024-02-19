@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,16 +13,41 @@ use App\Models\User;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+// Route::get('/unicode',function(){
+//   return view('form');
+// });
+// Route::get('/product',function(){
+//     return view('product');
+// });
+// Route::post('unicode',function(){
+// return 'phuong thuc post cuar path';
+// });
 
-Route::get('/unicode',function(){
-    $user = new User();
-    dd($user);
-    return view('home');
-});
+// Route::put('unicode',function(){
+//     return 'phương thức put';
+// });
 
-Route::get('/san-pham',function(){
-    return view('product');
+Route::prefix('admin')->group(function(){
+    Route::get('unicode',function(){
+        return 'Phương thức Get của Path/unicode';
+    });
+
+    Route::get('show-form',function(){
+        return view('form');
+    });
+
+    Route::prefix('products')->group(function(){
+        Route::get('/',function(){
+            return 'Danh sach san pham';
+        });
+        Route::get('add',function(){
+            return 'Thêm sản phẩm';
+        });
+        Route::get('edit',function(){
+            return 'chỉnh sửa';
+        });
+    });
 });
