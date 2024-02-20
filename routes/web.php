@@ -5,6 +5,7 @@ use App\Models\User;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,9 +17,8 @@ use App\Http\Controllers\Admin\DashboardController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/',function(){
-    return '<h1>Trang chủ Unicode</h1>';
-})->name('home');
+
+Route::get('/', [HomeController::class ,'index'])->name('home');
 
 Route::prefix('categories')->group(function () {
     Route::match(['get', 'post'], '/', [CategoriesController::class, 'index'])->name('categories');
@@ -30,3 +30,7 @@ Route::middleware('auth.admin')->prefix('admin')->group(function () {
     Route::get('/', [DashboardController::class, 'index']);
     Route::resource('products', ProductsController::class)->middleware('auth.admin.product');
 });
+
+
+
+Route::get('san-pham/{id}',[HomeController::class, 'getProductDetail']);

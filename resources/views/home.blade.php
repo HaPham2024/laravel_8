@@ -7,8 +7,17 @@
     <title>Học lập trình laravel</title>
 </head>
 <body>
-    <h1>Học lập trình tại Unicode</h1>
-    <a href="">Trang chủ tin tức</a>
-
+    <header>
+        <h1>HEADER - UNICODE</h1>
+        <h2>@php
+            echo $title;
+        @endphp</h2>
+    </header>
+    <main>
+        <h1>NỘI DUNG - UNICODE</h1>
+    </main>
+    <footer>
+        <h1>FOOTER - UNICODE</h1>
+    </footer>
 </body>
 </html>
