@@ -14,6 +14,8 @@ class CategoriesController extends Controller
      */
     public function index()
     {
+        // $allData = $request->all();
+
         return view('clients/categories/list');
     }
 
@@ -37,12 +39,12 @@ class CategoriesController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
         ]);
-    
+
         // Tạo mới category
-        $category = CategoriesModel::create([
-            'name' => $request->input('name'),
-        ]);
-    
+        // $category = CategoriesModel::create([
+        //     'name' => $request->input('name'),
+        // ]);
+
         return redirect()->route('categories')->with('success', 'Thêm mới danh mục thành công');
     }
     /**
