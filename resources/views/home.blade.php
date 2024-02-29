@@ -22,7 +22,7 @@
         <p>Phan tu: {{ $item }} - {{ $key }}</p>
     @endforeach --}}
 
-    @switch($number)
+    {{-- @switch($number)
         @case(1)
             <p>So thu nhat</p>
         @break
@@ -33,7 +33,34 @@
 
         @default
             <p>so con lai</p>
-    @endswitch
+    @endswitch --}}
+
+    @php
+        $number = 5;
+        if ($number >= 10) {
+            $total = $number + 20;
+        } else {
+            $total = $number + 10;
+        }
+
+    @endphp
+
+    <h3>ket qua: {{ $total }}</h3>
+
+    @verbatim
+        <div class="container">
+            hello,{{ className }}
+        </div>
+
+        <script>
+            hello, {{ name }}
+            Hi, {{ age }}
+        </script>
+    @endverbatim
+    @php
+        $message = 'dat hang thanh cong';
+    @endphp
+    @include('parts.notice');
 
 </body>
 
