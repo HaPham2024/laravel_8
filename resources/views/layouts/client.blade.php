@@ -42,7 +42,7 @@
     </script>
     <script src="{{ asset('assets/clients/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('assets/clients/js/custome.js') }}"></script>
-
+    @stack('scripts');
 </body>
 
 </html>
