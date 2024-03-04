@@ -12,4 +12,9 @@ class HomeController extends Controller
         $this->data['title'] = 'Trang chu';
         return view('clients.home', $this->data);
     }
+
+    public function product()
+    {
+        return view('clients.products');
+    }
 }

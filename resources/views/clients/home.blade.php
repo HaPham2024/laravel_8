@@ -8,7 +8,9 @@
 @endsection
 
 @section('content')
-    <h1>Trang chu</h1>
+    <h1>Trang chủ</h1>
+    @include('clients.contents.about')
+    @include('clients.contents.slide')
 @endsection
 @section('css')
     .hello {
