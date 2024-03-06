@@ -10,8 +10,8 @@ class HomeController extends Controller
     public $data = [];
     public function index()
     {
-        $this->data['title'] = 'Lập trình tại unicode';
-        $this->data['message'] = "Đăng ký tài khoản thành công";
+        $this->data['title'] = 'Học lập trình tại unicode';
+        $this->data['message'] = "Đăng ký tài khoản thành viên thành công";
         return view('client.home', $this->data);
     }
     public function products()
@@ -31,5 +31,14 @@ class HomeController extends Controller
     public function putAdd(Request $request)
     {
         dd($request);
+    }
+    public function getArray()
+    {
+        $contentArray = [
+            'name' => 'Laravel 8.x',
+            'lesson' => 'Khóa học lập trình laravel',
+            'academy' => 'Unicode'
+        ];
+        return $contentArray;
     }
 }

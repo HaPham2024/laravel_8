@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,7 +15,17 @@ use App\Http\Controllers\HomeController;
 |
 */
 
+
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/sanpham', [HomeController::class, 'products'])->name('products');
 Route::get('/them-san-pham', [HomeController::class, 'getAdd']);
 Route::put('/them-san-pham', [HomeController::class, 'putAdd']);
+
+
+Route::get('lay-thong-tin', [HomeController::class, 'getArray']);
+Route::get('/demo-response', function () {
+    $response = response()->view('client.demo-test', [
+        'title' => 'Học Http'
+    ], 201)->header('Content-Type', 'application/json');
+    return  $response;
+});
