@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\ProductRequest;
 
 class HomeController extends Controller
 {
@@ -10,7 +11,7 @@ class HomeController extends Controller
     public $data = [];
     public function index()
     {
-        $this->data['title'] = 'Lập trình tại unicode';
+        $this->data['title'] = 'Lập trình tại Unicode';
         $this->data['message'] = "Đăng ký tài khoản thành công";
         return view('client.home', $this->data);
     }
@@ -25,19 +26,9 @@ class HomeController extends Controller
         $this->data['errorMessage'] = 'Vui lòng nhập thông tin  ';
         return view('client.add', $this->data);
     }
-    public function postAdd(Request $request)
+    public function postAdd(ProductRequest $request)
     {
-        $rules = [
-            'product_name' => 'required|min:6',
-            'product_price' => 'required|integer'
-        ];
-        $message = [
-            'product_name.required' => 'Tên sản phẩm bắt buộc phải nhập',
-            'product_name.min' => 'Tên sản phẩm không được nhỏ hơn :min ký tự',
-            'product_price.required' => 'giá sản phẩm bắt buộc phải nhập',
-            'product_name.integer' => 'Giá sản phẩm phải là số'
-        ];
-        $request->validate($rules, $message);
+        dd($request);
     }
     public function putAdd(Request $request)
     {
@@ -48,7 +39,7 @@ class HomeController extends Controller
         $contentArray = [
             'name' => 'Laravel',
             'lesson' => 'Khóa học lập trình',
-            'academy' => 'unicode'
+            'academy' => 'Unicode'
         ];
         return $contentArray;
     }
