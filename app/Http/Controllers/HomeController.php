@@ -11,17 +11,18 @@ class HomeController extends Controller
     public function index()
     {
         $this->data['title'] = 'Lập trình tại unicode';
-        return view('clients.home', $this->data);
+        $this->data['message'] = "Đăng ký tài khoản thành công";
+        return view('client.home', $this->data);
     }
-    public function product()
+    public function products()
     {
         $this->data['title'] = 'Sản phẩm';
-        return view('clients.products', $this->data);
+        return view('client.products', $this->data);
     }
     public function getAdd()
     {
         $this->data['title'] = 'Thêm sản phẩm';
-        return view('clients.add', $this->data);
+        return view('client.add', $this->data);
     }
     public function postAdd(Request $request)
     {

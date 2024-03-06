@@ -1,20 +1,16 @@
 @extends('layouts.client')
-@section('title')
-    {{ $title }}
+@section('titlet')
+    <h1>Trang chủ - </h1>
 @endsection
 @section('sidebar')
-    {{-- @parent --}}
-    <h3>Home sidebar</h3>
+    @parent
+    <h1>Home Sidebar</h1>
 @endsection
 
 @section('content')
-    <h1>Trang chủ</h1>
-    @include('clients.contents.about')
-    @include('clients.contents.slide')
+    <h1> Trang chủ </h1>
+    <x-alert type="info" :content="$message" data-icon="youtube" />
 @endsection
+
 @section('css')
-    .hello {
-    background: red;
-    color: #fff;
-    }
 @endsection
