@@ -10,8 +10,8 @@ class HomeController extends Controller
     public $data = [];
     public function index()
     {
-        $this->data['title'] = 'Học lập trình tại unicode';
-        $this->data['message'] = "Đăng ký tài khoản thành viên thành công";
+        $this->data['title'] = 'Học lập trình';
+        $this->data['message'] = "Đăng ký tài khoản thành công";
         return view('client.home', $this->data);
     }
     public function products()
@@ -40,5 +40,17 @@ class HomeController extends Controller
             'academy' => 'Unicode'
         ];
         return $contentArray;
+    }
+    public function downloadImg(Request $request)
+    {
+        if (!empty($request->image)) {
+            $fileName = 'image_' . uniqid() . 'jpg';
+
+            $image = trim($request->image);
+            return response()->streamDownload(function () use ($image) {
+                $imageContent = file_get_contents($image);
+                echo $imageContent;
+            }, $fileName);
+        }
     }
 }

@@ -30,6 +30,7 @@ Route::put('/them-san-pham', [HomeController::class, 'putAdd']);
 
 Route::get('lay-thong-tin', [HomeController::class, 'getArray']);
 Route::get('/demo-response', function () {
+
     return view('client.demo-test');
 })->name('demo-response');
 Route::post('demo-response', function (Request $request) {
@@ -39,3 +40,4 @@ Route::post('demo-response', function (Request $request) {
     };
     return  redirect(route('demo-response'))->with('mess', 'Validate thực hiện không thành công');
 });
+Route::get('download-image/{link}', [HomeController::class, 'downloadImg'])->name('downImg');
