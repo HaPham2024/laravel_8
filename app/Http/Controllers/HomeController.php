@@ -10,7 +10,7 @@ class HomeController extends Controller
     public $data = [];
     public function index()
     {
-        $this->data['title'] = 'Học lập trình';
+        $this->data['title'] = 'Lập trình tại unicode';
         $this->data['message'] = "Đăng ký tài khoản thành công";
         return view('client.home', $this->data);
     }
@@ -22,11 +22,22 @@ class HomeController extends Controller
     public function getAdd()
     {
         $this->data['title'] = 'Thêm sản phẩm';
+        $this->data['errorMessage'] = 'Vui lòng nhập thông tin  ';
         return view('client.add', $this->data);
     }
     public function postAdd(Request $request)
     {
-        dd($request);
+        $rules = [
+            'product_name' => 'required|min:6',
+            'product_price' => 'required|integer'
+        ];
+        $message = [
+            'product_name.required' => 'Tên sản phẩm bắt buộc phải nhập',
+            'product_name.min' => 'Tên sản phẩm không được nhỏ hơn :min ký tự',
+            'product_price.required' => 'giá sản phẩm bắt buộc phải nhập',
+            'product_name.integer' => 'Giá sản phẩm phải là số'
+        ];
+        $request->validate($rules, $message);
     }
     public function putAdd(Request $request)
     {
@@ -35,9 +46,9 @@ class HomeController extends Controller
     public function getArray()
     {
         $contentArray = [
-            'name' => 'Laravel 8.x',
-            'lesson' => 'Khóa học lập trình laravel',
-            'academy' => 'Unicode'
+            'name' => 'Laravel',
+            'lesson' => 'Khóa học lập trình',
+            'academy' => 'unicode'
         ];
         return $contentArray;
     }
