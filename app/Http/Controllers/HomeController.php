@@ -3,10 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\ProductRequest;
-use Illuminate\Auth\Events\Validated;
 use Illuminate\Support\Facades\Validator;
-use App\Rules\Uppercase;
 
 class HomeController extends Controller
 {
@@ -32,15 +29,16 @@ class HomeController extends Controller
     public function postAdd(Request $request)
     {
         $rules = [
-            'product_name' => ['required', 'min:6', new Uppercase],
-            'product_price' => ['required', 'integer', new Uppercase]
+            'product_name' => ['required', 'min:6', function ($attribute, $value, $fail) {
+                isUppercase($value, $fail, 'Trường :attribute không hợp lệ');
+            }],
+            'product_price' => ['required', 'integer']
         ];
 
         $message = [
             'required' => ':attribute bắt buộc phải nhập',
             'min' => ':attribute không được nhỏ hơn :min ký tự',
             'integer' => ':attribute phải là số',
-            //'uppercase' =>'Trường :attribute phải viết hoa'
         ];
         $attribute = [
             'product_name' => 'Tên sản phẩm',
@@ -57,8 +55,6 @@ class HomeController extends Controller
         };
 
         return back()->withErrors($validator);
-        // $request->validate($rules,$message);
-        // Xử lý việc thêm dữ liệu vào database
     }
     public function putAdd(Request $request)
     {
