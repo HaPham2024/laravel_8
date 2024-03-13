@@ -18,7 +18,7 @@ use App\Http\Controllers\MyController;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/sanpham', [HomeController::class, 'products'])->name('products');
+Route::get('/sanpham', [HomeController::class, 'products'])->name('product');
 Route::get('/them-san-pham', [HomeController::class, 'getAdd']);
 Route::post('/them-san-pham', [HomeController::class, 'postAdd']);
 Route::put('/them-san-pham', [HomeController::class, 'putAdd']);
@@ -39,5 +39,7 @@ Route::post('demo-response', function (Request $request) {
 Route::get('download-image/{link}', [HomeController::class, 'downloadImg'])->name('downImg');
 
 Route::get('/xin-chao', [UserController::class, 'xinchao']);
+
+
 
 Route::resource('my', MyController::class);

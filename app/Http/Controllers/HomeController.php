@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\ProductRequest;
+use Illuminate\Auth\Events\Validated;
+use Illuminate\Support\Facades\Validator;
 
 class HomeController extends Controller
 {
@@ -11,7 +13,7 @@ class HomeController extends Controller
     public $data = [];
     public function index()
     {
-        $this->data['title'] = 'Lập trình tại Unicode';
+        $this->data['title'] = 'Lập trình tại unicode';
         $this->data['message'] = "Đăng ký tài khoản thành công";
         return view('client.home', $this->data);
     }
@@ -26,9 +28,33 @@ class HomeController extends Controller
         $this->data['errorMessage'] = 'Vui lòng nhập thông tin  ';
         return view('client.add', $this->data);
     }
-    public function postAdd(ProductRequest $request)
+    public function postAdd(Request $request)
     {
-        dd($request);
+        $rules = [
+            'product_name' => 'required|min:6',
+            'product_price' => 'required|integer'
+        ];
+
+        $message = [
+            'required' => ':attribute bắt buộc phải nhập',
+            'min' => ':attribute không được nhỏ hơn :min ký tự',
+            'integer' => ':attribute phải là số'
+        ];
+        $attribute = [
+            'product_name' => 'Tên sản phẩm',
+            'product_price' => 'Giá sản phẩm'
+        ];
+        $validator =  Validator::make($request->all(), $rules, $message, $attribute);
+        $validator->validate();
+        if ($validator->fails()) {
+            $validator->errors()->add('msg', 'Vui lòng kiểm tra dữ liệu');
+            //return 'Thất bại';
+        } else {
+            // return 'Thành công';
+            return redirect()->route('product')->with('msg', 'Validate thành công');
+        };
+
+        return back()->withErrors($validator);
     }
     public function putAdd(Request $request)
     {
@@ -37,9 +63,9 @@ class HomeController extends Controller
     public function getArray()
     {
         $contentArray = [
-            'name' => 'Laravel',
+            'name' => 'Laravel 8.x',
             'lesson' => 'Khóa học lập trình',
-            'academy' => 'Unicode'
+            'academy' => 'unicode âcdemy'
         ];
         return $contentArray;
     }
