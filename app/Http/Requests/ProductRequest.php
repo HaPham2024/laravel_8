@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class ProductRequest extends FormRequest
 {
@@ -13,7 +15,7 @@ class ProductRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -31,10 +33,10 @@ class ProductRequest extends FormRequest
     public function messages()
     {
         return [
-            'product_name.required' => 'Trường :Attribute bắt buộc phải nhập',
-            'product_name.integer' => 'Trường :Attribute  phải là số',
+            'product_name.required' => 'Trường :attribute bắt buộc phải nhập',
             'product_name.min' => 'Tên sản phẩm không được nhỏ hơn :min ký tự',
-            'product_price.required' => 'Trường :Attribute bắt buộc phải nhập'
+            'product_price.required' => 'Trường :attribute bắt buộc phải nhập',
+            'product_name.integer' => 'Trường :attribute  phải là số'
         ];
     }
     public function attributes()
@@ -43,5 +45,24 @@ class ProductRequest extends FormRequest
             'product_name' => 'Tên sản phẩm',
             'product_price' => 'Giá sản phẩm'
         ];
+    }
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+
+            if ($validator->errors()->count() > 0) {
+                $validator->errors()->add('msg', 'Có lỗi Xảy ra');
+            }
+        });
+    }
+    public function prepareForValidation()
+    {
+        $this->merge([
+            'create_at' => date('Y-m-d H:i:s')
+        ]);
+    }
+    protected function failedAuthorization()
+    {
+        throw new HttpResponseException(abort(404));
     }
 }

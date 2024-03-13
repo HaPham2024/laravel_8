@@ -3,13 +3,13 @@
     {{ $title }}
 @endsection
 @section('content')
-    <h1> Thêm sản phẩm </h1>
+    <h1>Add product </h1>
     <form action="" method="post">
-        @if ($errors->any())
-            <div class="alert alert-danger text-center">
-                {{ $errorMessage }}
+        @error('msg')
+            <div class='alert alert-danger text-center'>
+                {{ $message }}
             </div>
-        @endif
+        @enderror
         <div class="mb-3">
             <label for="">Tên sản phẩm</label>
             <input type="text" class="form-control" name="product_name" placeholder="tên sản phẩm..."

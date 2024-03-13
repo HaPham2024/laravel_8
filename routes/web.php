@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MyController;
 
@@ -40,7 +39,5 @@ Route::post('demo-response', function (Request $request) {
 Route::get('download-image/{link}', [HomeController::class, 'downloadImg'])->name('downImg');
 
 Route::get('/xin-chao', [UserController::class, 'xinchao']);
-
-Route::resource('photos', PhotoController::class);
 
 Route::resource('my', MyController::class);
