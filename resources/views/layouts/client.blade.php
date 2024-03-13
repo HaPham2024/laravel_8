@@ -39,6 +39,7 @@
     @include('client.blocks.footer')
     <script src="{{ asset('asserts/clients/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('asserts/clients/js/custome.js') }}"></script>
+    <script type="text/javascript" src='https://code.jquery.com/jquery-3.7.1.min.js'></script>
     @stack('scripts');
 </body>
 

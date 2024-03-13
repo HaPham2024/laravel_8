@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\ProductRequest;
 
 class HomeController extends Controller
 {
@@ -26,12 +26,10 @@ class HomeController extends Controller
         $this->data['errorMessage'] = 'Vui lòng nhập thông tin  ';
         return view('client.add', $this->data);
     }
-    public function postAdd(Request $request)
+    public function postAdd(ProductRequest $request)
     {
         $rules = [
-            'product_name' => ['required', 'min:6', function ($attribute, $value, $fail) {
-                isUppercase($value, $fail, 'Trường :attribute không hợp lệ');
-            }],
+            'product_name' => ['required', 'min:6'],
             'product_price' => ['required', 'integer']
         ];
 
@@ -44,17 +42,8 @@ class HomeController extends Controller
             'product_name' => 'Tên sản phẩm',
             'product_price' => 'Giá sản phẩm'
         ];
-        $validator =  Validator::make($request->all(), $rules, $message, $attribute);
-        $validator->validate();
-        if ($validator->fails()) {
-            $validator->errors()->add('msg', 'Vui lòng kiểm tra dữ liệu');
-            //return 'Thất bại';
-        } else {
-            // return 'Thành công';
-            return redirect()->route('product')->with('msg', 'Validate thành công');
-        };
 
-        return back()->withErrors($validator);
+        return response()->json(['status' => 'success']);
     }
     public function putAdd(Request $request)
     {
@@ -65,7 +54,7 @@ class HomeController extends Controller
         $contentArray = [
             'name' => 'Laravel 8.x',
             'lesson' => 'Khóa học lập trình',
-            'academy' => 'unicode'
+            'academy' => 'unicodey'
         ];
         return $contentArray;
     }
