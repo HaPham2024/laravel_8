@@ -1,19 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Models\User;
 use Illuminate\Http\Request;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\Admin\ProductsController;
-use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\MyOontroller;
-use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\MyController;
-use Illuminate\Http\Response;
-use Illuminate\Mail\Mailables\Content;
-use PhpParser\Node\Stmt\Return_;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +15,7 @@ use PhpParser\Node\Stmt\Return_;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+// client route
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/sanpham', [HomeController::class, 'products'])->name('product');
@@ -48,6 +38,8 @@ Route::post('demo-response', function (Request $request) {
 });
 Route::get('download-image/{link}', [HomeController::class, 'downloadImg'])->name('downImg');
 
-Route::prefix('/users')->group(function () {
-    Route::get('/', [UserController::class, 'index']);
+Route::prefix('/users')->name('users.')->group(function () {
+    Route::get('/', [UserController::class, 'index'])->name('index');
+    Route::get('/add', [UserController::class, 'add'])->name('add');
+    Route::post('/add', [UserController::class, 'postAdd'])->name('post-add');
 });
