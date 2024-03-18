@@ -3,11 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 
 class UserController extends Controller
 {
-    public function xinchao()
+    public function index()
     {
-        return '<h1>Xin chào các bạn PNV</h1>;';
+        $title = 'Danh sách người dùng';
+        $users = DB::select('SELECT * from users ORDER BY create_at DESC');
+        return view('client.users.lists', compact('title', 'users'));
     }
 }

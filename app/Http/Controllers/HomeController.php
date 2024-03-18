@@ -13,6 +13,7 @@ class HomeController extends Controller
     {
         $this->data['title'] = 'Lập trình tại unicode';
         $this->data['message'] = "Đăng ký tài khoản thành công";
+
         return view('client.home', $this->data);
     }
     public function products()
@@ -37,11 +38,13 @@ class HomeController extends Controller
             'required' => ':attribute bắt buộc phải nhập',
             'min' => ':attribute không được nhỏ hơn :min ký tự',
             'integer' => ':attribute phải là số',
+            //'uppercase' =>'Trường :attribute phải viết hoa'
         ];
         $attribute = [
             'product_name' => 'Tên sản phẩm',
             'product_price' => 'Giá sản phẩm'
         ];
+
 
         return response()->json(['status' => 'success']);
     }
@@ -54,7 +57,7 @@ class HomeController extends Controller
         $contentArray = [
             'name' => 'Laravel 8.x',
             'lesson' => 'Khóa học lập trình',
-            'academy' => 'unicodey'
+            'academy' => 'unicode âcdemy'
         ];
         return $contentArray;
     }
