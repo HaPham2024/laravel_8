@@ -31,7 +31,7 @@ class UserController extends Controller
             'fullname' => 'required|min:5',
             'email' => 'required|email|unique:users'
         ], [
-            'funllname.required' => 'Họ và tên bắt buộc phải nhập',
+            'fullname.required' => 'Họ và tên bắt buộc phải nhập',
             'fullname.min' => 'Họ và tên phải từ :min trở lên',
             'email.required' => 'Email bắt buộc phải nhập',
             'email.email' => 'Email không đúng định dạng của email',
@@ -44,5 +44,46 @@ class UserController extends Controller
         ];
         $this->users->addUser($dataInsert);
         return redirect()->route('users.index')->with('msg', 'thêm người dùng thành công');
+    }
+    public function getEdit(Request $request, $id = 0)
+    {
+        $title = 'cập nhật người dùng';
+        if (!empty($id)) {
+            $userDetial = $this->users->getDetial($id);
+            // dd($userDetial);
+            if (!empty($userDetial[0])) {
+                $request->session()->put('id', $id);
+                $userDetial = $userDetial[0];
+            } else {
+                return redirect()->route('users.index')->with('msg', 'Người dùng không tồn tại');
+            }
+        } else {
+            return redirect()->route('users.index')->with('msg', 'Liên kết không tồn tại');
+        }
+        return view('client.users.edit', compact('title', 'userDetial'));
+    }
+    public function postEdit(Request $request)
+    {
+        $id = session('id');
+        if (!empty($id)) {
+            return back()->with('msg', 'Id không tồn tại');
+        }
+        $request->validate([
+            'fullname' => 'required|min:5',
+            'email' => 'required|email|unique.users,email' . $id
+        ], [
+            'fullname.required' => 'Họ và tên bắt buộc phải nhập',
+            'fullname.min' => 'Họ và tên phải từ :min trở lên',
+            'email.required' => 'Email bắt buộc phải nhập',
+            'email.email' => 'Email không đúng định dạng của email',
+        ]);
+        $dataUpdate = [
+            $request->fullname,
+            $request->email,
+            date('Y-m-d H:i:s')
+        ];
+
+        $this->users->updateUser($dataUpdate, $id);
+        return back()->with('msg', 'cập nhật người dùng');
     }
 }
